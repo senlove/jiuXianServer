@@ -89,11 +89,11 @@ app.get('/loopDataList', function(req, response){
 	var loopDataArrs = new Array();
 	for(var i=0; i<random; i++){
 		var loopEntry = new LoopEntry();
-		loopEntry.loopImgUrl = loopImgArrs[i%(loopImgArrs.length - 1)];
+		loopEntry.loopImgUrl = loopImgArrs[i%loopImgArrs.length];
 
 		var loopPromptArrs = new Array();
 		for(var j=0; j<3; j++){
-			loopPromptArrs.push(loopPrompImgArrs[i%(loopImgArrs.length - 1)]);
+			loopPromptArrs.push(loopPrompImgArrs[i%loopImgArrs.length]);
 		}
 
 		loopEntry.loopPromptImgArrs = loopPromptArrs;
@@ -111,3 +111,61 @@ app.get('/loopDataList', function(req, response){
 	response.write(baseDataJsonTxt);
 	response.end();
 });
+
+//多类型数据接口
+app.get('/mulCategoryData', function(req, response){
+
+	var categorys = ['疯狂抢购','整箱优惠','爆款精选','口粮钜惠','大牌特卖'];
+
+	var entryNameArrs = ['【清仓】52°贵州茅台集团封坛1992铂金版500ml',
+						'52°五粮液股份公司金六福双福星475ml（6瓶装）',
+						'【超级秒杀日】52°白水杜康一坛老酒1000ml（双坛装）',
+						'53°玻瓶汾酒475ml（3瓶装）',
+						'53°汾酒商务蓝475ml'];
+	var priceArrs = [100, 200, 300, 400, 500];
+
+	// var categoryEntry = {
+	// 	imgUrl:'',
+	// 	des:'',
+	// 	price:0
+	// };
+
+	// var multiCategroryEntry = {
+	// 	name:'',
+	// 	categoryEntryList:''
+	// };
+
+	var multiCatEntryList = new Array();
+
+	for(var i=0; i<categorys.length; i++){
+
+		var categoryEntryList = new Array();
+		var multiCategroryEntry = new Object();
+		for(var j=0; j<10; j++){
+
+			var categoryEntry = new Object();
+
+			categoryEntry.imgUrl = multiItemImgArrs[(i%(multiItemImgArrs.length - 1))];
+			categoryEntry.des = entryNameArrs[(i%entryNameArrs.length)];
+			categoryEntry.price = priceArrs[(i%priceArrs.length)];
+
+			categoryEntryList.push(categoryEntry);
+		}
+
+		multiCategroryEntry.name = categorys[i%(categorys.length - 1)];
+		multiCategroryEntry.categoryEntryList = categoryEntryList;
+
+		multiCatEntryList.push(multiCategroryEntry);
+
+	}
+	
+	var baseDataJsonTxt = createBaseJsonTxt(multiCatEntryList);
+
+	response.writeHead(200, {
+		'Content-Type':"text/html; charset=utf-8",
+		'Access-Control-Allow-Origin':'*'
+	});
+	response.write(baseDataJsonTxt);
+	response.end();
+});
+
