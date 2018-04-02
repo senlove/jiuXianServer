@@ -37,22 +37,6 @@ var multiItemImgArrs = [
 	'http://img06.jximage.com/2015/0706/547035d5b46a4ace9071ed22c6dfaa4b2.jpg'
 ];
 
-//活动的地址列表
-var activityImgArrs = [
-	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png',
-	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png',
-	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png'
-];
-
-//优惠推荐图片数组
-var discountsImgArrs = [
-	'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
-	'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
-	'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
-];
-
-
-
 function LoopEntry(){
 
 }
@@ -124,17 +108,6 @@ app.get('/mulCategoryData', function(req, response){
 						'53°汾酒商务蓝475ml'];
 	var priceArrs = [100, 200, 300, 400, 500];
 
-	// var categoryEntry = {
-	// 	imgUrl:'',
-	// 	des:'',
-	// 	price:0
-	// };
-
-	// var multiCategroryEntry = {
-	// 	name:'',
-	// 	categoryEntryList:''
-	// };
-
 	var multiCatEntryList = new Array();
 
 	for(var i=0; i<categorys.length; i++){
@@ -169,3 +142,31 @@ app.get('/mulCategoryData', function(req, response){
 	response.end();
 });
 
+
+
+//活动数据接口
+app.get('/activityData', function(req, response) {
+
+    //活动的地址列表
+    var discountsImgArrs = [
+        'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
+        'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
+        'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
+    ];
+    var baseDataJsonTxt = createBaseJsonTxt(discountsImgArrs);
+
+    response.writeHead(200, {
+        'Content-Type': "text/html; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+    });
+    response.write(baseDataJsonTxt);
+    response.end();
+});
+
+
+//优惠推荐图片数组
+var discountsImgArrs = [
+	'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
+	'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
+	'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
+];
