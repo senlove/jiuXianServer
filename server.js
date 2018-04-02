@@ -119,12 +119,14 @@ app.get('/mulCategoryData', function(req, response){
 		var multiCategroryEntry = new Object();
 		for(var j=0; j<10; j++){
 
-			var categoryEntry = new Object();
+			// var categoryEntry = new Object();
 
-			categoryEntry.imgUrl = multiItemImgArrs[(i%(multiItemImgArrs.length - 1))];
-			categoryEntry.des = entryNameArrs[(i%entryNameArrs.length)];
-			categoryEntry.price = priceArrs[(i%priceArrs.length)];
-
+			// categoryEntry.imgUrl = multiItemImgArrs[(i%(multiItemImgArrs.length - 1))];
+			// categoryEntry.des = entryNameArrs[(i%entryNameArrs.length)];
+			// categoryEntry.price = priceArrs[(i%priceArrs.length)];
+			var categoryEntry = createWineEntry(multiItemImgArrs[(i%(multiItemImgArrs.length - 1))],
+							entryNameArrs[(i%entryNameArrs.length)],
+							priceArrs[(i%priceArrs.length)]);
 			categoryEntryList.push(categoryEntry);
 		}
 
@@ -145,7 +147,14 @@ app.get('/mulCategoryData', function(req, response){
 	response.end();
 });
 
+function createWineEntry(wineImgUrl, wineTitle, winePrice) {
+	var categoryEntry = new Object();
+    categoryEntry.imgUrl = wineImgUrl;
+    categoryEntry.des = wineTitle;
+    categoryEntry.price = winePrice;
 
+    return categoryEntry;
+}
 
 //活动数据接口
 app.get('/activityData', function(req, response) {
@@ -212,4 +221,57 @@ app.get('/discountData', function(req, response) {
     response.end();
 });
 
+//酒馆数据接口
+app.get('/tavernData', function(req, response) {
 
+   	var imgUrlArrs = ['http://img07.jiuxian.com/2016/1018/353f92b2a5bb429bbb62a52d06a334172.jpg',
+   					  'http://img07.jiuxian.com/2017/1206/78bf986293d94cd1987f24702efd88962.jpg',
+   					  'http://img07.jiuxian.com/2018/0119/6dd1803ef5fc4236821d487d444f830f2.jpg'];
+   	var titleArrs = ['【清仓】53°茅台集团国隆酱酒500ml',
+   					 '52°汾酒集团帝王黄封坛原酒475ml（6瓶装）',
+   					 '52°泸州老窖三人炫1000ml（双瓶装）+52°泸州老窖三人炫100ml+手提袋'];
+   	var priceArrs = [59.00, 199.00, 208.00];
+
+    var tavernEntry = new Object();
+    tavernEntry.title = '白酒馆';
+    tavernEntry.categoryArrs = ['贵州',
+    							'四川',
+    							'山西',
+    							'北京',
+    							'江苏',
+    							'山东',
+    							'安徽'];
+   	tavernEntry.loopImgArrs = ['http://img06.jiuxian.com/bill/2018/0316/51ad130653cd4ffb98dabfe8465b9cfa.jpg'];
+   	tavernEntry.hotRecomArrs = ['整箱够', '婚庆用酒', '大坛专场'];
+   	tavernEntry.beautyPlace = ['茅台', '五粮液', '剑南春', '汾酒', '郎酒', '泸州老窖'];
+
+
+   	var wineEntryList = new Array();
+   	for(var i=0; i<10; i++){
+   		var wineEntry = createWineEntry(imgUrlArrs[i%imgUrlArrs.length],
+   						titleArrs[i%titleArrs.length],
+   						priceArrs[i%priceArrs.length]);
+
+   		if(0 === i){
+   			wineEntry.activeType = '清仓特卖';
+   		} else if(9 === i){
+   			wineEntry.activeType = '立减100';
+   		} else{
+   			wineEntry.activeType = '';
+   		}
+
+   		wineEntryList.push(wineEntry);
+   	}
+
+   	tavernEntry.wineEntryList = wineEntryList;
+
+
+    var baseDataJsonTxt = createBaseJsonTxt(tavernEntry);
+
+    response.writeHead(200, {
+        'Content-Type': "text/html; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+    });
+    response.write(baseDataJsonTxt);
+    response.end();
+});
