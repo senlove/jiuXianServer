@@ -39,7 +39,6 @@ var multiItemImgArrs = [
 
 var priceArrs = [100, 200, 300, 400, 500];
 
-
 function LoopEntry(){
 
 }
@@ -274,4 +273,5 @@ app.get('/tavernData', function(req, response) {
     });
     response.write(baseDataJsonTxt);
     response.end();
-});
+};
+
