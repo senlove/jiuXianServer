@@ -8,33 +8,49 @@ function rnd(n, m){
 	return random;
 }
 
-var categoryArrs = ['商业','游戏','设计','城市','智能','娱乐'];
-
-var descArrays = [
-"两大浏览器将停止自动播放视频，这对广告行业有什么影响？",
-"这套可移动的模块化单元房，可作图书馆也可作住宅",
-"日本小镇特产走出大山，靠的是一座废料搭起来的酿酒厂",
-"沃尔玛引入扫描货架机器人，速度比人类快三倍",
-"美图投资的 Faceu 完成新一轮融资，也说要做社交",
-"「这世界」130 年了，千克的定义要变了"
+// 轮播图
+var loopImgArrs = [
+	'http://img08.jiuxian.com/bill/2018/0327/9eccdbcce1244ebf9a711cc04f242a62.jpg',
+	'http://img09.jiuxian.com/bill/2018/0331/f1051f9aa9424801b9c514807d2023e7.jpg',
+	'http://img08.jiuxian.com/bill/2018/0331/28ccc25274f742478bea729a85ea9959.jpg',
+	'http://img06.jiuxian.com/bill/2018/0326/8409e04ca94e4957a7722a2963a6b92e.jpg',
+	'http://img07.jiuxian.com/bill/2018/0330/c4ed45a6c2034495be55ef28650adebd.jpg',
+	'http://img09.jiuxian.com/bill/2018/0326/32621d26d564452ea1111bc86f14dff4.jpg'
 ];
 
-var loadmoreDescArrays = [
-"loadmore两大浏览器将停止自动播放视频，这对广告行业有什么影响？",
-"loadmore这套可移动的模块化单元房，可作图书馆也可作住宅",
-"loadmore日本小镇特产走出大山，靠的是一座废料搭起来的酿酒厂",
-"loadmore沃尔玛引入扫描货架机器人，速度比人类快三倍",
-"loadmore美图投资的 Faceu 完成新一轮融资，也说要做社交",
-"loadmore「这世界」130 年了，千克的定义要变了"
+// 轮播右边提示的图片
+var loopPrompImgArrs = [
+	'http://img10.jiuxian.com/bill/2017/1127/b5bb8b4be445443094e894fdb4abb9b6.jpg',
+	'http://img06.jiuxian.com/bill/2017/1115/df8f4e868bec46fdbcb967a9e5ef8a49.png',
+	'http://img06.jiuxian.com/bill/2017/1115/df8f4e868bec46fdbcb967a9e5ef8a49.png',
+	'http://img09.jiuxian.com/bill/2017/1124/7b1a1bf0d96e4bb0b756b1f249aed0c1.png',
+	'http://img10.jiuxian.com/bill/2017/1115/31ff2840b8084acf9bb4ee6b94ae4b0c.png',
+	'http://img10.jiuxian.com/bill/2017/1127/b5bb8b4be445443094e894fdb4abb9b6.jpg'
 ];
 
-var imgArrays = [
-"http://img.qdaily.com/article/article_show/20171031094030LZbuDQdlaX4SFohi.png?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1",
-"http://img.qdaily.com/article/article_show/201710311110263FMjdvzcn7QraOu2.jpg?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1",	
-"http://img.qdaily.com/article/article_show/20171031114624dis7rOEJR62YjgDw.jpg?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1",	
-"http://img.qdaily.com/article/article_show/20171031115703gIHeuaTCJ5kBFqoh.png?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1",	
-"http://img.qdaily.com/article/article_show/201710301359295QmfD8yiJvbNl6Ea.jpg?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1",	
-"http://img.qdaily.com/article/article_show/20171030225326muNfc0HEQsnJeDb6.jpg?imageMogr2/auto-orient/thumbnail/!245x185r/gravity/Center/crop/245x185/quality/85/format/webp/ignore-error/1"];
+//item 切换的内容
+var multiItemImgArrs = [
+	'http://img06.jiuxian.com/2017/0105/278b55960b474dffa34479d2c67277f22.jpg',
+	'http://img07.jiuxian.com/2014/0605/6fe09906c6274a6bae38dcc006d7dbe32.jpg',
+	'http://img08.jiuxian.com/2017/1018/43fb011b99ba4630a07817e05e6b4fac2.jpg',
+	'http://img09.jiuxian.com/2016/0331/03c13aa80c9c4dc0b9a5a6c72b04b7752.jpg',
+	'http://img06.jximage.com/2015/0706/547035d5b46a4ace9071ed22c6dfaa4b2.jpg'
+];
+
+//活动的地址列表
+var activityImgArrs = [
+	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png',
+	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png',
+	'http://img07.jiuxian.com/bill/2018/0323/48a96c5edd4d4a258a2ff1aa9802cab6.png'
+];
+
+//优惠推荐图片数组
+var discountsImgArrs = [
+	'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
+	'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
+	'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
+];
+
 
 
 function LoopEntry(){
@@ -42,158 +58,56 @@ function LoopEntry(){
 }
 
 LoopEntry.prototype = {
-	imgUrl:"",
-	category:"",
-	desc:""
+	loopImgUrl:'',
+	loopPromptImgArrs:''
+
 };
 
-function ItemData(){
 
-}
-
-ItemData.prototype = {
-
-	imgSrc:"",
-	desc:"",
-	publishTime:0,
-	commentCount:0,
-	praiseCount:0,
-	type:100 //100 200 300
-};
-
-// 首页的数据
-//五个轮播图的数据、4个item数据、一个大item的数据 包括投票数据、一个诗意的数据
-
-function createIndexData(){
-
-	//五个轮播图数据
-	var loopEntrylist = new Array();
-
-	for(var i=0; i<5; i++){
-		var loopEntry = new LoopEntry();
-		loopEntry.imgUrl = imgArrays[rnd(0, 5)];
-		loopEntry.category = categoryArrs[rnd(0, 5)];
-		loopEntry.desc = descArrays[rnd(0, 5)];
-
-		loopEntrylist.push(loopEntry);
-	}
-
-	//一个固定item的数据
-	var fxiedEntry = {
-		imgUrl:'http://img.qdaily.com/paper/paper_show/20180123112706BX2OEmPdpVLtT6a0.jpg?imageMogr2/auto-orient/thumbnail/!670x320r/gravity/Center/crop/670x320/quality/85/format/webp/ignore-error/1',
-		title:'你觉得有益的争论应该满足哪些标准？',
-		desc:'认真你就不会输',
-
-		supportImgUrl:'http://img.qdaily.com/house_and_life2.png'
+function createBaseJsonTxt(dataValue) {
+	var baseData = {
+		code:200,
+		message:'success'
 	};
 
-	//四个item的数据
-	var itemDataList = new Array();
-	for(var i=0; i<4; i++){
-		var itemData = new ItemData();
-
-		var random = rnd(0,4);
-		var imgRandomSrc = imgArrays[random];
-		var descRandom = descArrays[random];
-
-		itemData.imgSrc = imgRandomSrc;
-		itemData.desc = descRandom;
-		itemData.publishTime = 1509441932132;//毫秒做单位
-		itemData.commentCount = 10;
-		itemData.praiseCount = 15;
-		itemData.type = 100;//搞不清楚转换为json字符串的时候没有出现这个值，所以先默认赋值
-
-		itemDataList.push(itemData);
-	}
+	baseData.data = dataValue;
+	var baseDataJsonTxt = JSON.stringify(baseData);
+	return baseDataJsonTxt;
+}		
 
 
-
-	var indexDataObj = new Object();
-	indexDataObj.loopEntrylist = loopEntrylist;
-	indexDataObj.fxiedEntry = fxiedEntry;
-	indexDataObj.itemDataList = itemDataList;
-
-	var indexDataJson = JSON.stringify(indexDataObj);
-	console.log(indexDataJson);
-	return indexDataJson;
-}
-
-
-app.get('/indexData', function(req, response){
-		response.writeHead(200, {
-		'Content-Type':"text/html; charset=utf-8",
-		'Access-Control-Allow-Origin':'*'
-	});
-
-	var jsonTxt = createIndexData();
-	response.write(jsonTxt);
-	response.end();
+app.listen(8081, 'localhost',function(){
+	console.log('来了没');
 });
 
 
+//轮播图数据接口
+app.get('/loopDataList', function(req, response){
 
-function createData(arrsSize, index) {
+	//创建轮播图的数据
+	var random = rnd(3, 6);
+	var loopDataArrs = new Array();
+	for(var i=0; i<random; i++){
+		var loopEntry = new LoopEntry();
+		loopEntry.loopImgUrl = loopImgArrs[i%(loopImgArrs.length - 1)];
 
-	console.log(index);
-
-	var arrs = new Array();
-	for(var i=0; i<arrsSize; i++){
-
-		var itemData = new ItemData();
-
-		var random = rnd(0,5);
-		var imgRandomSrc = imgArrays[random];
-		var descRandom = descArrays[random];
-
-		if(undefined === index){
-			itemData.desc = descRandom;
-		} else {
-			itemData.desc = '第'+index+'页'+descRandom;
+		var loopPromptArrs = new Array();
+		for(var j=0; j<3; j++){
+			loopPromptArrs.push(loopPrompImgArrs[i%(loopImgArrs.length - 1)]);
 		}
 
-		
+		loopEntry.loopPromptImgArrs = loopPromptArrs;
 
-		itemData.imgSrc = imgRandomSrc;
+		loopDataArrs.push(loopEntry);
 
-		itemData.publishTime = 1509441932132;//毫秒做单位
-		itemData.commentCount = 10;
-		itemData.praiseCount = 15;
-		itemData.type = 100;//搞不清楚转换为json字符串的时候没有出现这个值，所以先默认赋值		
-
-		// if(i === 5) {
-		// 	itemData.type = 200;
-		// }
-
-		// if(7 === i){
-		// 	itemData.type = 200;
-		// }
-
-		// if(15 === i) {
-		// 	itemData.type = 200;
-		// }
-
-		arrs.push(itemData);
 	}
 
-	return arrs;
-}
-
-
-app.get('/itemList', function(req, response){
-
-	var index = req.query.index;
-
-	var dataList = createData(10, index);
-	var jsonTxt = JSON.stringify(dataList);
+	var baseDataJsonTxt = createBaseJsonTxt(loopDataArrs);
 
 	response.writeHead(200, {
 		'Content-Type':"text/html; charset=utf-8",
 		'Access-Control-Allow-Origin':'*'
 	});
-	response.write(jsonTxt);
+	response.write(baseDataJsonTxt);
 	response.end();
-});
-
-app.listen(8081, 'localhost',function(){
-	console.log('来了没');
 });
