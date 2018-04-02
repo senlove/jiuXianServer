@@ -37,6 +37,9 @@ var multiItemImgArrs = [
 	'http://img06.jximage.com/2015/0706/547035d5b46a4ace9071ed22c6dfaa4b2.jpg'
 ];
 
+var priceArrs = [100, 200, 300, 400, 500];
+
+
 function LoopEntry(){
 
 }
@@ -106,7 +109,7 @@ app.get('/mulCategoryData', function(req, response){
 						'【超级秒杀日】52°白水杜康一坛老酒1000ml（双坛装）',
 						'53°玻瓶汾酒475ml（3瓶装）',
 						'53°汾酒商务蓝475ml'];
-	var priceArrs = [100, 200, 300, 400, 500];
+	
 
 	var multiCatEntryList = new Array();
 
@@ -164,9 +167,49 @@ app.get('/activityData', function(req, response) {
 });
 
 
-//优惠推荐图片数组
-var discountsImgArrs = [
-	'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
-	'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
-	'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
-];
+//推荐数据接口
+app.get('/discountData', function(req, response) {
+
+    //活动的地址列表
+    //优惠推荐图片数组
+    var discountsImgArrs = [
+        'http://img09.jximage.com/2017/0317/38cf9dfd1f3a4b3bb95a19f3f72a1b002.jpg',
+        'http://img09.jximage.com/2017/0227/31f189c611994d0984c88620a059b6b82.jpg',
+        'http://img09.jximage.com/2018/0123/31a0cfca47fa4ef285a4dd965567a4232.jpg'
+    ];
+
+    var titleArrs = ['42°汾酒集团优级杏花村500ml',
+        '42°汾酒集团优级杏花村500ml',
+        '42°汾酒集团优级杏花村500ml'
+    ];
+
+
+    var random = rnd(2, 3);
+    var dataSize = 6 * random;
+    var currTimeMill = new Date().getTime();
+    var entryList = new Array();
+    for (var i = 0; i < dataSize; i++) {
+        var discountEntry = new Object();
+        discountEntry.imgUrl = discountsImgArrs[i % discountsImgArrs.length];
+        discountEntry.title = titleArrs[i % titleArrs.length];
+        discountEntry.price = priceArrs[i % priceArrs.length];
+
+        //随机一个或两个小时
+        var hourRandom = rnd(1, 2);
+        console.log(hourRandom);
+        discountEntry.restTime =  currTimeMill + (hourRandom * 60 * 60 * 1000);
+        entryList.push(discountEntry);
+    }
+
+
+    var baseDataJsonTxt = createBaseJsonTxt(entryList);
+
+    response.writeHead(200, {
+        'Content-Type': "text/html; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+    });
+    response.write(baseDataJsonTxt);
+    response.end();
+});
+
+
