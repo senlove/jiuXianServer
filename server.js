@@ -1,5 +1,7 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = express();
+app.use(bodyParser.urlencoded({extended:true}));
 
 
 // 一个范围的随机数 0，6 包括6
@@ -434,3 +436,73 @@ app.get('/shopCar', function(req, response) {
     response.end();
 });
 
+
+//注册接口 四个参数cellphone vertiCode messageVertiCode password
+app.post('/register', function(req, response){
+
+  var cellphone = req.body.cellphone;
+  var vertiCode = req.body.vertiCode;
+  var messageVertiCode = req.body.messageVertiCode;
+  var password = req.body.password;
+  
+  var registerEntry = new Object();
+  registerEntry.cellphone = cellphone;
+  registerEntry.name = '我是谁';
+  
+  var baseDataJsonTxt = createBaseJsonTxt(registerEntry);
+
+  response.writeHead(200, {
+    'Content-Type':"text/html; charset=utf-8",
+    'Access-Control-Allow-Origin':'*'
+  });
+  response.write(baseDataJsonTxt);
+  response.end();
+});
+//登录接口
+// 三个参数 username password vertiCode
+app.post('/login', function(req, response){
+
+  console.log(req.body.username);
+  var username = req.body.username;
+  var password = req.body.password;
+  var vertiCode = req.body.vertiCode;
+  
+  var baseData = {
+    code:200,
+    message:'success'
+  };
+
+
+  if('18923701111' === username){
+
+    if('123456' === password) {
+
+      var loginEntry = new Object();
+      loginEntry.username = username;
+      loginEntry.nickname = '我是谁?';
+      loginEntry.token = 'xagdadada';
+
+      baseData.data = loginEntry;
+
+    } else{
+        baseData.code = 41;
+        baseData.message = '密码不正确';
+        baseData.data = '';
+    }
+
+  } else{
+    baseData.code = 40;
+    baseData.message = '账号不正确';
+    baseData.data = '';
+  }
+
+  
+  var baseDataJsonTxt = JSON.stringify(baseData);
+
+  response.writeHead(200, {
+    'Content-Type':"text/html; charset=utf-8",
+    'Access-Control-Allow-Origin':'*'
+  });
+  response.write(baseDataJsonTxt);
+  response.end();
+});
