@@ -273,5 +273,77 @@ app.get('/tavernData', function(req, response) {
     });
     response.write(baseDataJsonTxt);
     response.end();
-};
+});
+
+//酒详情界面
+app.get('/wineDetail', function(req, response) {
+
+
+    var wineId = req.params('wineId');
+
+    var baseDataJsonTxt;
+
+    if('010004047' === wineId){
+      var imgBigArrs = ['http://img08.jiuxian.com/2014/0425/f732953497c34dfb86c74ef7c4cc237b6.jpg', 
+                        'http://img08.jiuxian.com/2014/0327/b996cf45203544aca0a6c0e7e609a7f96.jpg', 
+                        'http://img06.jiuxian.com/2014/0327/baa466226f0243f696b0b28a5c7046166.jpg', 
+                        'http://img10.jiuxian.com/2014/0327/e7a427b14f214ef5801ba650579730346.jpg'];
+
+      var imgListArrs = ['http://img09.jiuxian.com/2014/0425/f732953497c34dfb86c74ef7c4cc237b1.jpg', 
+                        'http://img07.jiuxian.com/2014/0327/b996cf45203544aca0a6c0e7e609a7f91.jpg', 
+                        'http://img07.jiuxian.com/2014/0327/baa466226f0243f696b0b28a5c7046161.jpg', 
+                        'http://img06.jiuxian.com/2014/0327/e7a427b14f214ef5801ba650579730341.jpg'];
+
+      var title = '53°青花20汾酒500ml';
+      var desc = '醇柔汾酒 清香飘远 低价实惠';
+      var disconutPrice = 388.00;
+      var clubPrice = 385.00;
+      var discountDescArrs = ['抄底价', '汾酒特卖'];
+      var accumuNum = 70676;
+      var evaluGrade = '5.0';
+      var goldNum = 194;
+      var selecteCategory = ['53°青花20汾酒500ml', '53°青花20汾酒500ml'];
+      var isUseDiscount = false;
+
+      var wineDetailEntry = new Object();
+      wineDetailEntry.wineId = wineId;
+      wineDetailEntry.imgBigArrs = imgBigArrs;
+      wineDetailEntry.imgListArrs = imgListArrs;
+      wineDetailEntry.title = title;
+      wineDetailEntry.desc = desc;
+      wineDetailEntry.disconutPrice = disconutPrice;
+      wineDetailEntry.clubPrice = clubPrice;
+      wineDetailEntry.discountDescArrs = discountDescArrs;
+      wineDetailEntry.accumuNum = accumuNum;
+      wineDetailEntry.evaluGrade = evaluGrade;
+      wineDetailEntry.goldNum = goldNum;
+      wineDetailEntry.selecteCategory = selecteCategory;
+      wineDetailEntry.isUseDiscount = isUseDiscount;
+
+      baseDataJsonTxt = createBaseJsonTxt(wineDetailEntry);
+
+    } else{
+
+      var baseData = {
+        code:200,
+        message:'success'
+      };
+
+      baseData.code = 50;
+      baseData.message = '商品信息不对';
+      baseData.data = '';
+
+      baseDataJsonTxt = JSON.stringify(baseData);
+
+    }
+   
+
+    response.writeHead(200, {
+        'Content-Type': "text/html; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+    });
+    response.write(baseDataJsonTxt);
+    response.end();
+});
+
 
