@@ -279,11 +279,24 @@ app.get('/tavernData', function(req, response) {
 app.get('/wineDetail', function(req, response) {
 
 
-    var wineId = req.params('wineId');
-
+    var wineId = req.query.wineId;
+    console.log(wineId);
     var baseDataJsonTxt;
 
-    if('010004047' === wineId){
+
+    if(undefined === wineId){
+      var baseData = {
+        code:200,
+        message:'success'
+      };
+
+      baseData.code = 50;
+      baseData.message = '没有wineId参数';
+      baseData.data = '';
+
+      baseDataJsonTxt = JSON.stringify(baseData);
+
+    } else if('010004047' === wineId){
       var imgBigArrs = ['http://img08.jiuxian.com/2014/0425/f732953497c34dfb86c74ef7c4cc237b6.jpg', 
                         'http://img08.jiuxian.com/2014/0327/b996cf45203544aca0a6c0e7e609a7f96.jpg', 
                         'http://img06.jiuxian.com/2014/0327/baa466226f0243f696b0b28a5c7046166.jpg', 
@@ -329,7 +342,7 @@ app.get('/wineDetail', function(req, response) {
         message:'success'
       };
 
-      baseData.code = 50;
+      baseData.code = 51;
       baseData.message = '商品信息不对';
       baseData.data = '';
 
@@ -346,4 +359,78 @@ app.get('/wineDetail', function(req, response) {
     response.end();
 });
 
+
+
+//购物车列表界面 暂时只提供两个商品
+app.get('/shopCar', function(req, response) {
+
+
+    var wineId = '010004047';
+    var imgUrl = 'https://img10.jiuxian.com/2014/0425/f732953497c34dfb86c74ef7c4cc237b4.jpg';
+    var title = '53°青花20汾酒500ml';
+    var desc = '醇柔汾酒 清香飘远 低价实惠';
+    var disconutPrice = 388.00;
+    var clubPrice = 385.00;
+    var discountDescArrs = ['抄底价', '汾酒特卖'];
+    var accumuNum = 70676;
+    var evaluGrade = '5.0';
+    var goldNum = 194;
+    var selecteCategory = ['53°青花20汾酒500ml', '53°青花20汾酒500ml'];
+    var isUseDiscount = false;
+
+    var shopCarEntry = new Object();
+    shopCarEntry.wineId = wineId;
+    shopCarEntry.imgUrl = imgUrl;
+    shopCarEntry.title = title;
+    shopCarEntry.desc = desc;
+    shopCarEntry.disconutPrice = disconutPrice;
+    shopCarEntry.clubPrice = clubPrice;
+    shopCarEntry.discountDescArrs = discountDescArrs;
+    shopCarEntry.accumuNum = accumuNum;
+    shopCarEntry.evaluGrade = evaluGrade;
+    shopCarEntry.goldNum = goldNum;
+    shopCarEntry.selecteCategory = selecteCategory;
+    shopCarEntry.isUseDiscount = isUseDiscount;
+
+    wineId = 'tz000624';
+    imgUrl = 'https://img10.jiuxian.com/2016/0331/03c13aa80c9c4dc0b9a5a6c72b04b7754.jpg';
+    title = '53°玻瓶汾酒475ml（3瓶装）';
+    desc = '醇柔汾酒 清香飘远 低价实惠';
+    disconutPrice = 120.00;
+    clubPrice = 119.99;
+    discountDescArrs = ['抄底价', '汾酒特卖'];
+    accumuNum = 70676;
+    evaluGrade = '5.0';
+    goldNum = 60;
+    selecteCategory = ['53°青花20汾酒500ml', '53°青花20汾酒500ml'];
+    isUseDiscount = false;
+
+
+    var otherEntry = new Object();
+    otherEntry.wineId = wineId;
+    otherEntry.imgUrl = imgUrl;
+    otherEntry.title = title;
+    otherEntry.desc = desc;
+    otherEntry.disconutPrice = disconutPrice;
+    otherEntry.clubPrice = clubPrice;
+    otherEntry.discountDescArrs = discountDescArrs;
+    otherEntry.accumuNum = accumuNum;
+    otherEntry.evaluGrade = evaluGrade;
+    otherEntry.goldNum = goldNum;
+    otherEntry.selecteCategory = selecteCategory;
+    otherEntry.isUseDiscount = isUseDiscount;
+
+    var shopCarEntryList = new Array();
+    shopCarEntryList.push(shopCarEntry);
+    shopCarEntryList.push(otherEntry);
+
+    var baseDataJsonTxt = createBaseJsonTxt(shopCarEntryList);
+
+    response.writeHead(200, {
+        'Content-Type': "text/html; charset=utf-8",
+        'Access-Control-Allow-Origin': '*'
+    });
+    response.write(baseDataJsonTxt);
+    response.end();
+});
 
